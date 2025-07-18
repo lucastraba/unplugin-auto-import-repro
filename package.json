@@ -1,0 +1,24 @@
+{
+  "name": "unplugin-auto-import-repro",
+  "version": "1.0.0",
+  "description": "Minimal reproduction for unplugin-auto-import @vueuse/core issue in pnpm monorepos",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "workspace-a": "pnpm --filter workspace-a",
+    "initialize-reproduction": "pnpm install && pnpm workspace-a build",
+    "reset-reproduction": "rm -rf node_modules && rm -rf packages/workspace-a/node_modules && rm -rf pnpm-lock.yaml && rm -rf packages/workspace-a/dist && pnpm install && pnpm workspace-a build",
+    "test": "vitest run",
+    "reproduce-bug": "pnpm workspace-a test && pnpm test"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "dependencies": {
+    "jsdom": "^26.1.0"
+  }
+}
